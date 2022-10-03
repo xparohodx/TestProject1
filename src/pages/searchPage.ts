@@ -1,7 +1,7 @@
 import basicPage from "./basicPage";
 
 class searchPage extends basicPage {
-    
+
     private locatorButtonInputClear = page.locator(".input__clear");
     private locatorInputSearch = page.locator(".input__control");
     private locatorButtonSearch = page.locator('[type=submit]').first();
@@ -12,7 +12,7 @@ class searchPage extends basicPage {
     /**
      * Нажимает кнопку "х" для очистки поля поиска
      */
-    public async clearInputField() {
+    async clearInputField() {
         await this.locatorButtonInputClear.click();
         console.log(`Клик на кнопке "x" в поле поиска`);
     }
@@ -21,7 +21,7 @@ class searchPage extends basicPage {
      * Вводит текст в поле поиска
      * @param request - текст запроса
      */
-    public async fillInputField(request: string) {
+    async fillInputField(request: string) {
         await this.locatorInputSearch.fill(request);
         console.log(`Ввод текста "${request}" в поле поиска`);
     }
@@ -29,9 +29,9 @@ class searchPage extends basicPage {
     /**
      * Нажимает кнопку "Найти" и ждет выполнения запроса
      */
-    public async clickButtonSearch() {
+    async clickButtonSearch() {
         const [response] = await Promise.all([
-        page.waitForResponse(response => response.url().includes('https://yandex.ru/video/search?format=json') && response.status() === 200),    
+        page.waitForResponse(response => response.url().includes('search?format=json') && response.status() === 200),    
         this.locatorButtonSearch.click(),
         console.log(`Клик на кнопке "Найти"`),      
       ]);
@@ -40,7 +40,7 @@ class searchPage extends basicPage {
     /**
      * Проверяет, что отображается блок с результатами поиска
      */
-    public async assertVisibleSearchResults() {        
+    async assertVisibleSearchResults() {        
       expect ((await page.waitForSelector(".content__left")).isVisible);
       console.log(`Результаты поиска отображаются`);
     }
@@ -49,7 +49,7 @@ class searchPage extends basicPage {
      * Наводит курсор на видео с заданным номером в списке
      * @param videoNumber - номер видео в списке
      */
-    public async hoverOnVideo(videoNumber: number) {
+    async hoverOnVideo(videoNumber: number) {
        await this.locatorVideoListItem.nth(videoNumber).hover();
        console.log(`Курсор установлен на видео с номером ${videoNumber} в списке`);
     }
@@ -57,14 +57,14 @@ class searchPage extends basicPage {
     /**
      * Проверяет, что курсор наведен
      */
-    public assertVideoIsHovered() {
+    assertVideoIsHovered() {
         expect (this.locatorVideoHovered.isVisible());
     }
 
     /**
      * Проверяет, что отображается превью
      */
-    public assertVisiblePreview() {
+    assertVisiblePreview() {
         this.locatorVideoPreview.isVisible();
         console.log(`Превью видео отображается`);
     }
