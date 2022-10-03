@@ -5,13 +5,15 @@ class searchPage extends basicPage {
     private locatorButtonInputClear = page.locator(".input__clear");
     private locatorInputSearch = page.locator(".input__control");
     private locatorButtonSearch = page.locator('[type=submit]').first();
+    private locatorVideoListItem = page.locator(".serp-item__preview");
     private locatorVideoHovered = page.locator(".serp-item__preview", {has: page.locator(".thumb-image_hovered")});
+    private locatorVideoPreview = page.locator(".serp-item__preview", { has: page.locator(".thumb-preview__target_playing") });
 
     /**
      * Нажимает кнопку "х" для очистки поля поиска
      */
-    public clearInputField(): void {
-        this.locatorButtonInputClear.click();
+    public async clearInputField() {
+        await this.locatorButtonInputClear.click();
         console.log(`Клик на кнопке "x" в поле поиска`);
     }
 
@@ -19,8 +21,8 @@ class searchPage extends basicPage {
      * Вводит текст в поле поиска
      * @param request - текст запроса
      */
-    public fillInputField(request: string): void {
-        this.locatorInputSearch.fill(request);
+    public async fillInputField(request: string) {
+        await this.locatorInputSearch.fill(request);
         console.log(`Ввод текста "${request}" в поле поиска`);
     }
 
@@ -48,7 +50,7 @@ class searchPage extends basicPage {
      * @param videoNumber - номер видео в списке
      */
     public async hoverOnVideo(videoNumber: number) {
-       await page.locator(".serp-item__preview").nth(videoNumber).hover();
+       await this.locatorVideoListItem.nth(videoNumber).hover();
        console.log(`Курсор установлен на видео с номером ${videoNumber} в списке`);
     }
 
@@ -63,7 +65,7 @@ class searchPage extends basicPage {
      * Проверяет, что отображается превью
      */
     public assertVisiblePreview() {
-        expect (page.locator(".serp-item__preview", { has: page.locator(".thumb-preview__target_playing") }).isVisible());
+        this.locatorVideoPreview.isVisible();
         console.log(`Превью видео отображается`);
     }
 }

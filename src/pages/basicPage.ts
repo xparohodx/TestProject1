@@ -4,7 +4,7 @@ abstract class basicPage {
    Открывает страницу с указанным url
    url: string - адрес сайта */
    public async openPageByUrl(url: string) {
-      await page.goto("https://yandex.ru/video/");
+      await page.goto(url);
       console.log(`Открыта страница с адресом ${url}`);
    }
     
