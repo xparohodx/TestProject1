@@ -7,7 +7,9 @@ afterEach(async () => {
 
 test('Yandex video search', async () => {
   
+  //поисковый запрос
   const searchQuery = "ураган";
+  //номер видео в списке, для которого проверяем превью
   const videoNumber = 6;
 
   const newSearchPage = new searchPage();
