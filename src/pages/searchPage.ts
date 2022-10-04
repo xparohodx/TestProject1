@@ -7,8 +7,8 @@ class searchPage extends basicPage {
     private locatorButtonInputClear = page.locator(".input__clear");
     private locatorInputSearch = page.locator(".input__control");
     private locatorButtonSearch = page.locator('[type=submit]').first();
-    private locatorVideoListItem = page.locator(".serp-item__preview");
-    private locatorVideoHovered = page.locator(".serp-item__preview", {has: page.locator(".thumb-image_hovered")});
+    private locatorVideosListItem = page.locator(".serp-item__preview");
+    private locatorVideosListItemHovered = page.locator(".serp-item__preview", {has: page.locator(".thumb-image_hovered")});
     private locatorVideoPreview = page.locator(".serp-item__preview", { has: page.locator(".thumb-preview__target_playing") });
 
     /**
@@ -60,7 +60,7 @@ class searchPage extends basicPage {
      * @param videoNumber - номер видео в списке
      */
     async hoverOnVideo(videoNumber: number) {
-       await this.locatorVideoListItem.nth(videoNumber).hover();
+       await this.locatorVideosListItem.nth(videoNumber).hover();
        console.log(`Курсор установлен на видео с номером ${videoNumber} в списке`);
     }
 
@@ -68,7 +68,7 @@ class searchPage extends basicPage {
      * Проверяет, что курсор наведен
      */
     assertVideoIsHovered() {
-        expect (this.locatorVideoHovered.isVisible());
+        expect (this.locatorVideosListItemHovered.isVisible());
     }
 
     /**
