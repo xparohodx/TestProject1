@@ -2,12 +2,22 @@ import basicPage from "./basicPage";
 
 class searchPage extends basicPage {
 
+    url = "https://yandex.ru/video/";
+
     private locatorButtonInputClear = page.locator(".input__clear");
     private locatorInputSearch = page.locator(".input__control");
     private locatorButtonSearch = page.locator('[type=submit]').first();
     private locatorVideoListItem = page.locator(".serp-item__preview");
     private locatorVideoHovered = page.locator(".serp-item__preview", {has: page.locator(".thumb-image_hovered")});
     private locatorVideoPreview = page.locator(".serp-item__preview", { has: page.locator(".thumb-preview__target_playing") });
+
+    /**
+     * Открывает страницу с заданным url
+     */
+    async openPage() {
+        await page.goto(this.url);
+        console.log(`Открыта страница с адресом ${this.url}`);
+     }
 
     /**
      * Нажимает кнопку "х" для очистки поля поиска
@@ -30,11 +40,11 @@ class searchPage extends basicPage {
      * Нажимает кнопку "Найти" и ждет выполнения запроса
      */
     async clickButtonSearch() {
-        const [response] = await Promise.all([
-        page.waitForResponse(response => response.url().includes('search?format=json') && response.status() === 200),    
-        this.locatorButtonSearch.click(),
-        console.log(`Клик на кнопке "Найти"`),      
-      ]);
+        await Promise.all([
+        page.waitForResponse(response => response.url().includes(`${this.url}search?format=json`) && response.status() === 200),    
+        this.locatorButtonSearch.click(),             
+      ])
+      console.log(`Клик на кнопке "Найти"`); 
     }
 
     /**

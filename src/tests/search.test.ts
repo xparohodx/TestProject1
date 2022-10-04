@@ -7,17 +7,15 @@ afterEach(async () => {
 
 test('Yandex video search', async () => {
 
-  //тестируемый сайт
-  const url = "https://yandex.ru/video/";
   //поисковый запрос
   const searchQuery = "ураган";
   //номер видео в списке, для которого проверяем превью
-  const videoNumber = 6;
+  const videoNumber = 10;
 
   const newSearchPage = new searchPage();
   
   //шаг 1
-  await newSearchPage.openPageByUrl(url);
+  await newSearchPage.openPage();
   await newSearchPage.assertPageTitle("видео найдено в Яндексе");   
         
   //шаг 2    
